@@ -1,0 +1,57 @@
+Dockerfile
+
+.dockerignore
+
+docker build -t myapp .
+-> This creates an image (myapp). relative to the working directory
+
+docker images
+-> List down images.
+
+docker run --name myapp_c -p 4040:4000 -d myapp
+-> This creates a container (myapp_c) which is mapped to port 4040 (of localhost) to port 4000 (of container). -d is for detached mode.
+
+docker ps
+-> List down only the running containers.
+
+docker ps -a
+-> List down all the containers.
+
+docker stop myapp_c1
+-> To stop the running container (myapp_c1)
+
+docker start myapp_c1
+-> To start the container (myapp_c1) backup. You don't need to add the port mapping as the information is already stored while you created the container.
+
+Layer Caching
+
+docker image rm myapp4
+-> Deletes the image (myapp4) whose container is not running.
+
+docker image rm myapp3 -f
+-> Deletes the image (myapp3) forcefully whose container is still running.
+
+docker container rm myapp_c test_c
+-> Deletes containers which are not running.
+
+docker container rm myapp_c1 -f
+-> Deletes a container which is still running.
+
+docker system prune -a
+-> To kill all the images, cointainers and volumes.
+
+docker start myapp_c
+-> To run  the existing container myapp_c. This command does not create a brand new container.
+
+docker run --name myapp_c_nodemon -p 4040:4000 --rm -v C:\Users\Neel\Desktop\Docker\api:/app -v /app/node_modules myapp:myapp_c_nodemon
+-> The -v flag is to create a volume. This basically sync the files on our computer to the files in the container. It's generally used in testing and dev phase.
+Note: The image still remains as it is.
+
+
+docker-compose.yaml file
+
+docker-compose up
+-> To make images for each service and run containers for them 
+
+docker-compose down --rmi all -v
+-> To stop the container with removing all images (--rmi all) and volumes (-v)
